@@ -1,0 +1,112 @@
+<acme-navbar></acme-navbar>
+       <div id="layoutSidenav">
+           <acme-sidebar></acme-sidebar>
+            <div id="layoutSidenav_content">
+                <main ng-show="subjectTable">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Subject</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update subject information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header" style="display: block">Subject<div style="float: right"><button type="button" class="btn btn-primary" style="float: right!important" ng-click="addNewSubject=true;subjectTable=false;">Add new</button></div></div>
+                            <div class="card-body">
+                              <input class="form-control sb-form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="subjectSearch"/>
+                                <div class="sb-datatable table-responsive">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Subject name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                        <tbody>
+                                            <tr ng-repeat="subject in subjectData | filter:subjectSearch">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{subject.subject}}</td>
+                                                <td>
+                                                   <button type="button" class="btn btn-success" ng-click="editSubject(subject)">Edit</button>
+                                                   <button type="button" class="btn btn-danger" ng-click="deleteSubject(subject)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </main>
+
+                 <main ng-show="addNewSubject">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Add Subject</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Add subject information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Add Subjects</div>
+                            <div class="card-body">
+                               <form name="subjectValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="subject" required="" ng-model="addSubjectData.subject"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!subjectValidate.$valid" ng-click="addSubject(addSubjectData)">Add</button>
+                                      <button type="button" class="btn btn-danger" ng-click="subjectTable=true;addNewSubject=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="editSubjectForm">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Update Subject</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update subject information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Update subject</div>
+                            <div class="card-body">
+                               <form name="editSubjectValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="subject" required="" ng-model="editData.subject"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!editSubjectValidate.$valid" ng-click="updateSubject(editData)">Update</button>
+                                    <button type="button" class="btn btn-danger" ng-click="subjectTable=true;editSubjectForm=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+             
+            </div>
+        </div>
+      

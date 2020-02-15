@@ -1,0 +1,123 @@
+<acme-navbar></acme-navbar>
+       <div id="layoutSidenav">
+           <acme-sidebar></acme-sidebar>
+            <div id="layoutSidenav_content">
+                <main ng-show="teacherTable">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Teacher</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update teacher information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header" style="display: block">Teacher<div style="float: right"><button type="button" class="btn btn-primary" style="float: right!important" ng-click="addNewTeacher=true;teacherTable=false;">Add new</button></div></div>
+                            <div class="card-body">
+                              <input class="form-control sb-form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="teacherSearch"/>
+                                <div class="sb-datatable table-responsive">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Name</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Address</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                        <tbody>
+                                            <tr ng-repeat="teacher in teacherData | filter:teacherSearch">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{teacher.name}}</td>
+                                                <td>{{teacher.phone}}</td>
+                                                <td>{{teacher.email}}</td>
+                                                <td>{{teacher.address}}</td>
+                                                <td>
+                                                   <button type="button" class="btn btn-success" ng-click="editTeacher(teacher)">Edit</button>
+                                                   <button type="button" class="btn btn-danger" ng-click="deleteTeacher(teacher)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="addNewTeacher">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Add Teacher</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Add teacher information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Add Teachers</div>
+                            <div class="card-body">
+                               <form name="teacherValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Name" required="" ng-model="addTeacherData.name"><br>
+                                    <input type="text" class="form-control" placeholder="Phone" required="" ng-model="addTeacherData.phone"><br>
+                                    <input type="text" class="form-control" placeholder="Email" required="" ng-model="addTeacherData.email"><br>  
+                                    <input type="text" class="form-control" placeholder="Address" required="" ng-model="addTeacherData.address"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!teacherValidate.$valid" ng-click="addTeacher(addTeacherData)">Add</button>
+                                      <button type="button" class="btn btn-danger" ng-click="teacherTable=true;addNewTeacher=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="editTeacherForm">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Update Teacher</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update teacher information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Update teacher</div>
+                            <div class="card-body">
+                               <form name="editTeacherValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="teacher" required="" ng-model="editData.name"><br>
+                                       <input type="text" class="form-control" placeholder="Phone" required="" ng-model="editData.phone"><br>
+                                    <input type="text" class="form-control" placeholder="Email" required="" ng-model="editData.email"><br>  
+                                    <input type="text" class="form-control" placeholder="Address" required="" ng-model="editData.address"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!editTeacherValidate.$valid" ng-click="updateTeacher(editData)">Update</button>
+                                    <button type="button" class="btn btn-danger" ng-click="teacherTable=true;editTeacherForm=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+             
+            </div>
+        </div>
+      

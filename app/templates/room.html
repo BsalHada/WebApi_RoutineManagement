@@ -1,0 +1,111 @@
+<acme-navbar></acme-navbar>
+       <div id="layoutSidenav">
+           <acme-sidebar></acme-sidebar>
+            <div id="layoutSidenav_content">
+                <main ng-show="roomTable">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Rooms</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update room information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header" style="display: block">Rooms<div style="float: right"><button type="button" class="btn btn-primary" style="float: right!important" ng-click="addNewRoom=true;roomTable=false;">Add new</button></div></div>
+                            <div class="card-body">
+                              <input class="form-control sb-form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="roomSearch"/>
+                                <div class="sb-datatable table-responsive">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Room name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                        <tbody>
+                                            <tr ng-repeat="room in roomData | filter:roomSearch">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{room.room}}</td>
+                                                <td>
+                                                   <button type="button" class="btn btn-success" ng-click="editRoom(room)">Edit</button>
+                                                   <button type="button" class="btn btn-danger" ng-click="deleteRoom(room)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </main>
+
+                 <main ng-show="addNewRoom">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Add Rooms</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Add room information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Add Rooms</div>
+                            <div class="card-body">
+                               <form name="roomValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Room" required="" ng-model="addRoomData.room"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!roomValidate.$valid" ng-click="addRoom(addRoomData)">Add</button>
+                                    <button type="button" class="btn btn-danger" ng-click="roomTable=true;addNewRoom=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="editRoomForm">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Update Rooms</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update room information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Update Rooms</div>
+                            <div class="card-body">
+                               <form name="editRoomValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Room" required="" ng-model="editData.room"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!editRoomValidate.$valid" ng-click="updateRoom(editData)">Update</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+             
+            </div>
+        </div>
+      

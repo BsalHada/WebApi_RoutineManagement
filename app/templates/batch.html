@@ -1,0 +1,112 @@
+<acme-navbar></acme-navbar>
+       <div id="layoutSidenav">
+           <acme-sidebar></acme-sidebar>
+            <div id="layoutSidenav_content">
+                <main ng-show="batchTable">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Batch</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update batch information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header" style="display: block">Batch<div style="float: right"><button type="button" class="btn btn-primary" style="float: right!important" ng-click="addNewRoom=true;batchTable=false;">Add new</button></div></div>
+                            <div class="card-body">
+                              <input class="form-control sb-form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="batchSearch"/>
+                                <div class="sb-datatable table-responsive">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Batch name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                        <tbody>
+                                            <tr ng-repeat="batch in batchData | filter:batchSearch">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{batch.batch}}</td>
+                                                <td>
+                                                   <button type="button" class="btn btn-success" ng-click="editBatch(batch)">Edit</button>
+                                                   <button type="button" class="btn btn-danger" ng-click="deleteBatch(batch)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </main>
+
+                 <main ng-show="addNewRoom">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Add Batch</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Add batch information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Add Batchs=</div>
+                            <div class="card-body">
+                               <form name="batchValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="batch" required="" ng-model="addBatchData.batch"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!batchValidate.$valid" ng-click="addBatch(addBatchData)">Add</button>
+                                    <button type="button" class="btn btn-danger" ng-click="batchTable=true;addNewRoom=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="editBatchForm">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Update Batch</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update batch information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Update batch</div>
+                            <div class="card-body">
+                               <form name="editBatchValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="batch" required="" ng-model="editData.batch"><br>
+                                    <button type="button" class="btn btn-primary" ng-disabled="!editBatchValidate.$valid" ng-click="updateBatch(editData)">Update</button>
+                                    <button type="button" class="btn btn-danger" ng-click="batchTable=true;editBatchForm=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+             
+            </div>
+        </div>
+      

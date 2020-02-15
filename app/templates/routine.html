@@ -1,0 +1,179 @@
+<acme-navbar></acme-navbar>
+       <div id="layoutSidenav">
+           <acme-sidebar></acme-sidebar>
+            <div id="layoutSidenav_content">
+                <main ng-show="routineTable">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Routine</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle" ng-if="userType==1">Update routine information from here.</div>
+                                <div class="sb-page-header-subtitle" ng-if="userType==0">View routine</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header" style="display: block">Routine<div style="float: right"><button type="button" ng-show="userType==1" class="btn btn-primary" style="float: right!important" ng-click="addNewRoutine=true;routineTable=false;">Add new</button></div></div>
+                            <div class="card-body">
+                              <input class="form-control sb-form-control-solid mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="routineSearch"/>
+                                <div class="sb-datatable table-responsive">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>SN</th>
+                                                <th>Subject</th>
+                                                <th>Room</th>
+                                                <th>Batch</th>
+                                                <th>Date</th>
+                                                <th ng-if="userType==1">Actions</th>
+                                            </tr>
+                                        </thead>
+                                      
+                                        <tbody>
+                                            <tr ng-repeat="routine in routineData | filter:routineSearch">
+                                                <td>{{$index+1}}</td>
+                                                <td>{{routine.subject.subject}}</td>
+                                                <td>{{routine.room.room}}</td>
+                                                <td>{{routine.batch.batch}}</td>
+                                                <td>{{routine.date | date:'MM-dd-yyyy' }}</td>
+                                                <td ng-if="userType==1">
+                                                   <button type="button" class="btn btn-success" ng-click="editRoutine(routine)">Edit</button>
+                                                   <button type="button" class="btn btn-danger" ng-click="deleteRoutine(routine)">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="addNewRoutine">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Add Routine</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Add routine information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Add Routines</div>
+                            <div class="card-body">
+                               <form name="routineValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Subject</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect01" ng-model="addRoutineData.subject">
+                                        <option selected disabled>Choose...</option>
+                                        <option ng-repeat="s in subjectData" value="{{s._id}}">{{s.subject}}</option>
+                                      </select>
+                                    </div><br>
+                                     <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Room</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect0s1" ng-model="addRoutineData.room">
+                                        <option ng-repeat="r in roomData" value="{{r._id}}">{{r.room}}</option>
+                                      </select>
+                                    </div>
+                                      <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelects01">Batch</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect0ss1" ng-model="addRoutineData.batch">
+                                        <option ng-repeat="b in batchData" value="{{b._id}}">{{b.batch}}</option>
+                                      </select>
+                                    </div>
+                                     <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Date</label>
+                                      </div>
+                                       <input type="date" class="form-control" placeholder="Date" required="" ng-model="addRoutineData.date">
+                                    </div>
+                                   
+                                    <button type="button" class="btn btn-primary" ng-disabled="!routineValidate.$valid" ng-click="addRoutine(addRoutineData)">Add</button>
+                                      <button type="button" class="btn btn-danger" ng-click="routineTable=true;addNewRoutine=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                 <main ng-show="editRoutineForm">
+                    <div class="sb-page-header pb-10 sb-page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="container-fluid">
+                            <div class="sb-page-header-content py-5">
+                                <h1 class="sb-page-header-title">
+                                    <div class="sb-page-header-icon"><i data-feather="filter"></i></div>
+                                    <span>Update Routine</span>
+                                </h1>
+                                <div class="sb-page-header-subtitle">Update routine information from here.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card mb-4">
+                            <div class="card-header">Update routine</div>
+                            <div class="card-body">
+                               <form name="editRoutineValidate">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Subject</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect01" ng-model="editData.subject._id">
+                                        <option selected disabled>Choose...</option>
+                                        <option ng-repeat="s in subjectData" value="{{s._id}}">{{s.subject}}</option>
+                                      </select>
+                                    </div><br>
+                                     <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Room</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect0s1" ng-model="editData.room._id">
+                                        <option ng-repeat="r in roomData" value="{{r._id}}">{{r.room}}</option>
+                                      </select>
+                                    </div>
+                                      <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelects01">Batch</label>
+                                      </div>
+                                      <select class="custom-select" id="inputGroupSelect0ss1" ng-model="editData.batch._id">
+                                        <option ng-repeat="b in batchData" value="{{b._id}}">{{b.batch}}</option>
+                                      </select>
+                                    </div>
+                                     <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Date</label>
+                                      </div>
+                                       <input type="date" class="form-control" placeholder="Date" required="" ng-model="editData.date">
+                                    </div> 
+                                    <button type="button" class="btn btn-primary" ng-disabled="!editRoutineValidate.$valid" ng-click="updateRoutine(editData)">Update</button>
+                                    <button type="button" class="btn btn-danger" ng-click="routineTable=true;editRoutineForm=false">Cancel</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+             
+            </div>
+        </div>
+      
